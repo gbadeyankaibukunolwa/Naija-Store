@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Naija Market | Luxury African Marketplace</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-gold: #D4AF37;
+      --primary-black: #1A1A1A;
+      --secondary-gold: #F0E68C;
+      --accent-gold: #FFD700;
+      --light-bg: #F8F5F0;
+      --dark-text: #2C1810;
+      --light-text: #F5F5DC;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      --transition: all 0.3s ease;
+      --admin-purple: #6A0DAD;
+      --admin-dark: #4B0082;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background: linear-gradient(135deg, var(--light-bg) 0%, #FFF8E1 100%);
+      color: var(--dark-text);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    /* Header & Navigation */
+    header {
+      background: linear-gradient(135deg, var(--primary-black) 0%, #2C1810 100%);
+      color: var(--light-text);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: var(--shadow);
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+      color: var(--primary-gold);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: var(--light-text);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--primary-gold);
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: var(--primary-gold);
+      transition: var(--transition);
+    }
+
+    nav a:hover::after, nav a.active::after {
+      width: 80%;
+    }
+
+    /* Page Container */
+    .page-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+
+    .page {
+      display: none;
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Page Styling */
+    .page-content {
+      background: white;
+      padding: 3rem;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .page h1 {
+      font-size: 2.8rem;
+      color: var(--primary-black);
+      margin-bottom: 2rem;
+      text-align: center;
+      position: relative;
+      padding-bottom: 1rem;
+    }
+
+    .page h1::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: var(--primary-gold);
+    }
+
+    /* Admin Page - Special Styling */
+    .admin-page .page-content {
+      background: linear-gradient(135deg, #f8f6ff 0%, #f0e6ff 100%);
+      border: 2px solid var(--admin-purple);
+    }
+
+    .admin-page h1 {
+      color: var(--admin-dark);
+    }
+
+    .admin-page h1::after {
+      background: var(--admin-purple);
+    }
+
+    .admin-welcome {
+      text-align: center;
+      font-size: 1.4rem;
+      color: var(--admin-purple);
+      margin-bottom: 2.5rem;
+      padding: 1.5rem;
+      background: rgba(106, 13, 173, 0.1);
+      border-radius: 12px;
+      border-left: 4px solid var(--admin-purple);
+      border: 2px solid var(--admin-purple);
+    }
+
+    /* Admin Login */
+    .admin-login {
+      max-width: 500px;
+      margin: 0 auto;
+      background: white;
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      border: 2px solid var(--admin-purple);
+    }
+
+    .admin-login h2 {
+      text-align: center;
+      color: var(--admin-dark);
+      margin-bottom: 2rem;
+      font-size: 2rem;
+    }
+
+    /* Admin Product Management */
+    .admin-product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .admin-product-card {
+      background: white;
+      border: 2px solid var(--secondary-gold);
+      border-radius: 16px;
+      padding: 1.5rem;
+      position: relative;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .admin-product-image {
+      width: 100%;
+      height: 200px;
+      background: var(--light-bg);
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .admin-product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .admin-product-image .placeholder {
+      font-size: 3rem;
+      color: var(--secondary-gold);
+    }
+
+    .admin-product-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .admin-btn {
+      flex: 1;
+      padding: 0.6rem;
+      font-size: 0.9rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 600;
+    }
+
+    .admin-btn-edit {
+      background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+      color: white;
+    }
+
+    .admin-btn-delete {
+      background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+      color: white;
+    }
+
+    .admin-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Form Elements */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 1.2rem;
+      margin: 0.8rem 0;
+      border: 2px solid #F0E68C;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      transition: var(--transition);
+      font-family: 'Georgia', serif;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--primary-gold);
+      box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.25);
+    }
+
+    /* Admin Form */
+    .admin-form {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      border: 2px solid var(--admin-purple);
+      margin-bottom: 2rem;
+    }
+
+    .admin-form h2 {
+      color: var(--admin-dark);
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+    }
+
+    .image-url-input {
+      border: 2px solid var(--admin-purple);
+      background: rgba(106, 13, 173, 0.05);
+    }
+
+    .image-url-input:focus {
+      border-color: var(--admin-dark);
+      box-shadow: 0 0 0 4px rgba(106, 13, 173, 0.25);
+    }
+
+    .image-preview {
+      margin-top: 1rem;
+      max-height: 200px;
+      overflow: hidden;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .image-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Buttons */
+    .btn {
+      background: linear-gradient(135deg, var(--primary-gold) 0%, var(--accent-gold) 100%);
+      color: var(--primary-black);
+      border: none;
+      padding: 1rem 2rem;
+      cursor: pointer;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: var(--transition);
+      box-shadow: 0 6px 15px rgba(212, 175, 55, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+      color: white;
+      box-shadow: 0 6px 15px rgba(108, 117, 125, 0.3);
+    }
+
+    .btn-secondary:hover {
+      box-shadow: 0 8px 20px rgba(108, 117, 125, 0.4);
+    }
+
+    .btn-admin {
+      background: linear-gradient(135deg, var(--admin-purple) 0%, var(--admin-dark) 100%);
+      color: white;
+      box-shadow: 0 6px 15px rgba(106, 13, 173, 0.3);
+    }
+
+    .btn-admin:hover {
+      box-shadow: 0 8px 20px rgba(106, 13, 173, 0.4);
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(135deg, var(--primary-black) 0%, #2C1810 100%);
+      color: var(--light-text);
+      text-align: center;
+      padding: 2.5rem;
+      margin-top: 3rem;
+    }
+
+    footer p {
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0 1rem;
+      }
+      
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.8rem;
+      }
+      
+      .page-content {
+        padding: 2rem 1.5rem;
+      }
+      
+      .page h1 {
+        font-size: 2.2rem;
+      }
+      
+      .admin-product-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: #666;
+      font-style: italic;
+    }
+
+    .back-to-shop {
+      display: block;
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 16px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--admin-purple);
+    }
+
+    .close-modal {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--admin-dark);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-content">
+    <div class="logo" onclick="showPage('shop')">NAIJA MARKET</div>
+    <nav id="mainNav">
+      <a href="#" class="active" onclick="showPage('shop')"><i class="fas fa-store"></i> Shop</a>
+      <a href="#" onclick="showPage('cart')"><i class="fas fa-shopping-cart"></i> Cart</a>
+      <a href="#" onclick="showPage('checkout')"><i class="fas fa-credit-card"></i> Checkout</a>
+      <a href="#" onclick="showAdminLogin()"><i class="fas fa-user-shield"></i> Admin</a>
+      <a href="#" onclick="showPage('contact')"><i class="fas fa-phone"></i> Contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-container">
+  <!-- Shop Page -->
+  <div id="shop" class="page active">
+    <div class="page-content">
+      <h1><i class="fas fa-store"></i> Luxury African Products</h1>
+      <div class="products-grid" id="shop-products-grid">
+        <!-- Products will be populated from admin data -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Page -->
+  <div id="cart" class="page">
+    <div class="page-content">
+      <h1><i class="fas fa-shopping-cart"></i> Your Shopping Cart</h1>
+      <ul id="cart-items" class="cart-items"></ul>
+      <div class="cart-total">Total: ₦<span id="cart-total">0</span></div>
+      <div style="text-align: center; margin-top: 2rem;">
+        <button class="btn" onclick="showPage('shop')">
+          <i class="fas fa-store"></i> Continue Shopping
+        </button>
+        <button class="btn" style="margin-left: 1rem;" onclick="showPage('checkout')">
+          <i class="fas fa-credit-card"></i> Proceed to Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout Page -->
+  <div id="checkout" class="page">
+    <div class="page-content">
+      <h1><i class="fas fa-credit-card"></i> Secure Checkout</h1>
+      <div class="form-group">
+        <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--primary-black);">
+          Email Address
+        </label>
+        <input type="email" id="email" placeholder="Enter your email address" required>
+      </div>
+      <div class="form-group">
+        <label for="phone" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--primary-black);">
+          Phone Number
+        </label>
+        <input type="tel" id="phone" placeholder="Enter your phone number" required>
+      </div>
+      <div class="form-group">
+        <label for="address" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--primary-black);">
+          Delivery Address
+        </label>
+        <textarea id="address" placeholder="Enter your full delivery address" rows="4" required></textarea>
+      </div>
+      <div style="text-align: center; margin-top: 2rem;">
+        <button class="btn" onclick="payWithPaystack()">
+          <i class="fas fa-lock"></i> Pay Securely Now
+        </button>
+        <button class="btn btn-secondary" style="margin-left: 1rem;" onclick="showPage('cart')">
+          <i class="fas fa-arrow-left"></i> Back to Cart
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Login Modal -->
+  <div id="adminLoginModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2><i class="fas fa-lock"></i> Admin Authentication</h2>
+        <button class="close-modal" onclick="closeAdminLogin()">&times;</button>
+      </div>
+      <div class="admin-login">
+        <form onsubmit="authenticateAdmin(event)">
+          <div class="form-group">
+            <label for="adminPassword">Admin Password</label>
+            <input type="password" id="adminPassword" placeholder="Enter admin password" required>
+          </div>
+          <button type="submit" class="btn btn-admin">
+            <i class="fas fa-sign-in-alt"></i> Access Dashboard
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Dashboard -->
+  <div id="admin" class="page admin-page">
+    <div class="page-content">
+      <h1><i class="fas fa-user-shield"></i> Admin Dashboard</h1>
+      <div class="admin-welcome">
+        <strong>Welcome, Tolu!</strong><br>
+        Manage your luxury marketplace inventory with full control
+      </div>
+
+      <!-- Add/Edit Product Form -->
+      <div class="admin-form" id="productFormContainer">
+        <h2 id="formTitle"><i class="fas fa-plus-circle"></i> Add New Product</h2>
+        <form onsubmit="saveProduct(event)" id="productForm">
+          <input type="hidden" id="productId">
+          <div class="form-group">
+            <label for="productName">Product Name</label>
+            <input type="text" id="productName" placeholder="Enter product name" required>
+          </div>
+          <div class="form-group">
+            <label for="productPrice">Price (₦)</label>
+            <input type="number" id="productPrice" placeholder="Enter price" required min="1">
+          </div>
+          <div class="form-group">
+            <label for="productCategory">Category</label>
+            <select id="productCategory" required>
+              <option value="">Select category</option>
+              <option value="Beauty">Beauty & Skincare</option>
+              <option value="Fashion">Fashion & Accessories</option>
+              <option value="Home">Home & Decor</option>
+              <option value="Food">Food & Spices</option>
+              <option value="Art">Art & Crafts</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="productDescription">Description</label>
+            <textarea id="productDescription" placeholder="Enter product description" rows="3" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="productImage">Image URL</label>
+            <input type="url" id="productImage" class="image-url-input" placeholder="Paste image URL (e.g., https://example.com/image.jpg)" required>
+            <div class="image-preview" id="imagePreview"></div>
+          </div>
+          <button type="submit" class="btn btn-admin">
+            <i class="fas fa-save"></i> <span id="saveButtonText">Save Product</span>
+          </button>
+          <button type="button" class="btn btn-secondary" style="margin-left: 1rem;" onclick="resetForm()">
+            <i class="fas fa-times"></i> Cancel
+          </button>
+        </form>
+      </div>
+
+      <!-- Product Inventory -->
+      <h2 style="text-align: center; margin: 3rem 0 1.5rem; color: var(--admin-dark); font-size: 1.8rem;">
+        <i class="fas fa-list"></i> Product Inventory
+      </h2>
+      <div class="admin-product-grid" id="adminProductGrid">
+        <!-- Products will be populated here -->
+      </div>
+      
+      <div style="text-align: center; margin-top: 2rem;">
+        <button class="btn btn-secondary" onclick="showPage('shop')">
+          <i class="fas fa-store"></i> View Public Store
+        </button>
+        <button class="btn btn-admin" style="margin-left: 1rem;" onclick="logoutAdmin()">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Page -->
+  <div id="contact" class="page">
+    <div class="page-content">
+      <h1><i class="fas fa-phone"></i> Contact Our Team</h1>
+      <p style="text-align: center; margin-bottom: 2.5rem; font-size: 1.3rem; line-height: 1.8;">
+        We'd love to hear from you! Reach us through any of the options below for inquiries, 
+        support, or partnership opportunities.
+      </p>
+
+      <ul class="contact-links">
+        <li>
+          <i class="fab fa-whatsapp"></i>
+          <div>
+            <strong>WhatsApp Support</strong><br>
+            <a href="https://wa.me/234XXXXXXXXXX" target="_blank">+234 XXX XXX XXXX</a>
+          </div>
+        </li>
+        <li>
+          <i class="fas fa-envelope"></i>
+          <div>
+            <strong>Email Us</strong><br>
+            <a href="mailto:naijamarket@example.com">naijamarket@example.com</a>
+          </div>
+        </li>
+        <li>
+          <i class="fab fa-instagram"></i>
+          <div>
+            <strong>Instagram</strong><br>
+            <a href="https://instagram.com/naijamarket" target="_blank">@naijamarket</a>
+          </div>
+        </li>
+        <li>
+          <i class="fas fa-map-marker-alt"></i>
+          <div>
+            <strong>Address</strong><br>
+            Luxury Marketplace HQ, Lagos, Nigeria
+          </div>
+        </li>
+      </ul>
+
+      <div style="max-width: 700px; margin: 3rem auto 0;">
+        <h2 style="text-align: center; margin-bottom: 1.5rem; color: var(--primary-black); font-size: 1.8rem;">
+          <i class="fas fa-envelope-open-text"></i> Send a Message
+        </h2>
+        <form onsubmit="sendMessage(event)" style="display: flex; flex-direction: column; gap: 1.5rem;">
+          <div class="form-group">
+            <label for="contactName">Your Name</label>
+            <input type="text" id="contactName" placeholder="Enter your full name" required>
+          </div>
+          <div class="form-group">
+            <label for="contactEmail">Email Address</label>
+            <input type="email" id="contactEmail" placeholder="Enter your email address" required>
+          </div>
+          <div class="form-group">
+            <label for="contactSubject">Subject</label>
+            <select id="contactSubject" required>
+              <option value="">Select subject</option>
+              <option value="general">General Inquiry</option>
+              <option value="support">Customer Support</option>
+              <option value="wholesale">Wholesale Orders</option>
+              <option value="partnership">Partnership</option>
+              <option value="feedback">Feedback</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="contactMessage">Message</label>
+            <textarea id="contactMessage" placeholder="Enter your message" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="btn">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2025 Naija Market. All rights reserved.</p>
+  <p style="font-size: 1rem; opacity: 0.8;">
+    Premium African Marketplace | Authentic | Luxury | Trusted
+  </p>
+</footer>
+
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script>
+  let cart = [];
+  let products = [
+    {
+      id: 1,
+      name: "Premium Shea Butter",
+      price: 3000,
+      category: "Beauty",
+      description: "Pure, unrefined shea butter sourced from Northern Nigeria",
+      image: "https://placehold.co/300x200/D4AF37/FFFFFF?text=Shea+Butter"
+    },
+    {
+      id: 2,
+      name: "Handcrafted Beads",
+      price: 5000,
+      category: "Fashion",
+      description: "Traditional Yoruba beads handcrafted by local artisans",
+      image: "https://placehold.co/300x200/FFD700/000000?text=Beads"
+    },
+    {
+      id: 3,
+      name: "Traditional Fabric",
+      price: 8500,
+      category: "Fashion",
+      description: "Authentic Ankara fabric with vibrant African patterns",
+      image: "https://placehold.co/300x200/D4AF37/FFFFFF?text=Ankara"
+    },
+    {
+      id: 4,
+      name: "Spice Collection",
+      price: 4200,
+      category: "Food",
+      description: "Premium Nigerian spices including suya spice and ogiri",
+      image: "https://placehold.co/300x200/FF6B35/FFFFFF?text=Spices"
+    }
+  ];
+  let currentEditingProduct = null;
+  const ADMIN_PASSWORD = "admin123";
+
+  // Page Navigation
+  function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(page => {
+      page.classList.remove('active');
+    });
+    document.getElementById(pageId).classList.add('active');
+    
+    document.querySelectorAll('#mainNav a').forEach(link => {
+      link.classList.remove('active');
+    });
+    
+    if (pageId === 'admin') {
+      renderAdminProducts();
+    } else if (pageId === 'shop') {
+      renderShopProducts();
+    }
+  }
+
+  // Admin Authentication
+  function showAdminLogin() {
+    document.getElementById('adminLoginModal').style.display = 'flex';
+  }
+
+  function closeAdminLogin() {
+    document.getElementById('adminLoginModal').style.display = 'none';
+  }
+
+  function authenticateAdmin(e) {
+    e.preventDefault();
+    const password = document.getElementById('adminPassword').value;
+    
+    if (password === ADMIN_PASSWORD) {
+      closeAdminLogin();
+      showPage('admin');
+      document.getElementById('adminPassword').value = '';
+    } else {
+      alert('Invalid admin password!');
+    }
+  }
+
+  function logoutAdmin() {
+    showPage('shop');
+    resetForm();
+  }
+
+  // Product Management
+  function renderShopProducts() {
+    const grid = document.getElementById('shop-products-grid');
+    grid.innerHTML = '';
+    
+    products.forEach(product => {
+      const productDiv = document.createElement('div');
+      productDiv.className = 'product';
+      productDiv.innerHTML = `
+        <div class="product-image" style="width: 100%; height: 200px; background: var(--light-bg); border-radius: 12px; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+          <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://placehold.co/300x200/D4AF37/FFFFFF?text=No+Image'">
+        </div>
+        <h3>${product.name}</h3>
+        <p>₦${product.price.toLocaleString()}</p>
+        <button class="btn" onclick="addToCart('${product.name}', ${product.price}, '${product.image}')">
+          <i class="fas fa-shopping-cart"></i> Add to Cart
+        </button>
+      `;
+      grid.appendChild(productDiv);
+    });
+  }
+
+  function renderAdminProducts() {
+    const grid = document.getElementById('adminProductGrid');
+    grid.innerHTML = '';
+    
+    if (products.length === 0) {
+      grid.innerHTML = '<div class="empty-state">No products in inventory yet.</div>';
+      return;
+    }
+    
+    products.forEach(product => {
+      const productDiv = document.createElement('div');
+      productDiv.className = 'admin-product-card';
+      productDiv.innerHTML = `
+        <div class="admin-product-image">
+          <img src="${product.image}" alt="${product.name}" onerror="this.parentElement.innerHTML='<div class=\'placeholder\'><i class=\'fas fa-image\'></i></div>'">
+        </div>
+        <h3 style="font-size: 1.3rem; color: var(--primary-black); margin-bottom: 0.5rem;">${product.name}</h3>
+        <p style="color: var(--primary-gold); font-weight: bold; font-size: 1.2rem;">₦${product.price.toLocaleString()}</p>
+        <p style="font-size: 0.9rem; color: #666; margin-bottom: 1rem;">${product.category}</p>
+        <p style="font-size: 0.9rem; line-height: 1.4;">${product.description}</p>
+        <p style="font-size: 0.8rem; color: var(--admin-purple); word-break: break-all;">${product.image}</p>
+        <div class="admin-product-actions">
+          <button class="admin-btn admin-btn-edit" onclick="editProduct(${product.id})">
+            <i class="fas fa-edit"></i> Edit
+          </button>
+          <button class="admin-btn admin-btn-delete" onclick="deleteProduct(${product.id})">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        </div>
+      `;
+      grid.appendChild(productDiv);
+    });
+  }
+
+  function saveProduct(e) {
+    e.preventDefault();
+    
+    const id = document.getElementById('productId').value || Date.now();
+    const name = document.getElementById('productName').value;
+    const price = parseInt(document.getElementById('productPrice').value);
+    const category = document.getElementById('productCategory').value;
+    const description = document.getElementById('productDescription').value;
+    const imageUrl = document.getElementById('productImage').value.trim();
+    
+    // Validate URL
+    try {
+      new URL(imageUrl);
+    } catch (e) {
+      alert('Please enter a valid image URL (must start with http:// or https://)');
+      return;
+    }
+    
+    const product = { id: parseInt(id), name, price, category, description, image: imageUrl };
+    
+    if (currentEditingProduct) {
+      // Update existing product
+      const index = products.findIndex(p => p.id === parseInt(id));
+      if (index !== -1) {
+        products[index] = product;
+      }
+    } else {
+      // Add new product
+      products.push(product);
+    }
+    
+    renderAdminProducts();
+    renderShopProducts();
+    resetForm();
+    showSuccessMessage(currentEditingProduct ? 'Product updated successfully!' : 'Product added successfully!');
+  }
+
+  function editProduct(productId) {
+    const product = products.find(p => p.id === productId);
+    if (product) {
+      currentEditingProduct = product;
+      document.getElementById('productId').value = product.id;
+      document.getElementById('productName').value = product.name;
+      document.getElementById('productPrice').value = product.price;
+      document.getElementById('productCategory').value = product.category;
+      document.getElementById('productDescription').value = product.description;
+      document.getElementById('productImage').value = product.image;
+      
+      // Set image preview
+      const preview = document.getElementById('imagePreview');
+      preview.innerHTML = `<img src="${product.image}" alt="${product.name}" onerror="this.src='https://placehold.co/300x200/D4AF37/FFFFFF?text=No+Image'">`;
+      preview.style.display = 'block';
+      
+      document.getElementById('formTitle').innerHTML = '<i class="fas fa-edit"></i> Edit Product';
+      document.getElementById('saveButtonText').textContent = 'Update Product';
+      
+      // Scroll to form
+      document.getElementById('productFormContainer').scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  function deleteProduct(productId) {
+    if (confirm('Are you sure you want to delete this product?')) {
+      products = products.filter(p => p.id !== productId);
+      renderAdminProducts();
+      renderShopProducts();
+      showSuccessMessage('Product deleted successfully!');
+    }
+  }
+
+  function resetForm() {
+    document.getElementById('productForm').reset();
+    document.getElementById('productId').value = '';
+    document.getElementById('imagePreview').style.display = 'none';
+    document.getElementById('formTitle').innerHTML = '<i class="fas fa-plus-circle"></i> Add New Product';
+    document.getElementById('saveButtonText').textContent = 'Save Product';
+    currentEditingProduct = null;
+  }
+
+  // Image URL Preview
+  document.getElementById('productImage').addEventListener('input', function(e) {
+    const url = e.target.value.trim();
+    const preview = document.getElementById('imagePreview');
+    
+    if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
+      preview.innerHTML = `<img src="${url}" alt="Product preview" onerror="this.src='https://placehold.co/300x200/D4AF37/FFFFFF?text=Invalid+URL'">`;
+      preview.style.display = 'block';
+    } else {
+      preview.style.display = 'none';
+    }
+  });
+
+  // Cart Functions
+  function addToCart(name, price, image) {
+    cart.push({ name, price, image });
+    updateCart();
+    showSuccessMessage('Product added to cart successfully!');
+  }
+
+  function updateCart() {
+    const cartList = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+    cartList.innerHTML = '';
+    let total = 0;
+    
+    if (cart.length === 0) {
+      cartList.innerHTML = '<div class="empty-state">Your cart is empty. Start shopping!</div>';
+    } else {
+      cart.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;" onerror="this.src='https://placehold.co/50x50/D4AF37/FFFFFF?text=No+Image'">
+            <span>${item.name}</span>
+          </div>
+          <span>₦${item.price.toLocaleString()}</span>
+        `;
+        cartList.appendChild(li);
+        total += item.price;
+      });
+    }
+    
+    cartTotal.textContent = total.toLocaleString();
+  }
+
+  // Checkout Functions
+  function payWithPaystack() {
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const address = document.getElementById('address').value;
+    
+    if (!email || !phone || !address) {
+      alert('Please fill in all required fields');
+      return;
+    }
+    
+    const total = cart.reduce((sum, item) => sum + item.price, 0) * 100; // Convert to kobo
+    if (total === 0) {
+      alert('Your cart is empty!');
+      return;
+    }
+    
+    let handler = PaystackPop.setup({
+      key: 'pk_live_371c7e66226e42f8049242b744dea27ca0999e74', // ✅ LIVE PAYSTACK KEY
+      email: email,
+      amount: total,
+      currency: 'NGN',
+      ref: 'NMA-' + Math.floor(Math.random() * 1000000), // Unique reference
+      callback: function(response) {
+        showSuccessMessage('Payment successful! Reference: ' + response.reference);
+        cart = [];
+        updateCart();
+        document.getElementById('email').value = '';
+        document.getElementById('phone').value = '';
+        document.getElementById('address').value = '';
+        showPage('shop');
+      },
+      onClose: function() {
+        alert('Transaction was not completed.');
+      }
+    });
+    handler.openIframe();
+  }
+
+  // Contact Functions
+  function sendMessage(e) {
+    e.preventDefault();
+    showSuccessMessage('Message sent successfully! We will respond within 24 hours.');
+    document.getElementById('contactName').value = '';
+    document.getElementById('contactEmail').value = '';
+    document.getElementById('contactSubject').value = '';
+    document.getElementById('contactMessage').value = '';
+  }
+
+  // Utility Functions
+  function showSuccessMessage(message) {
+    const successDiv = document.createElement('div');
+    successDiv.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #28a745, #218838);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      z-index: 10000;
+      font-weight: bold;
+      animation: slideIn 0.3s ease;
+    `;
+    successDiv.innerHTML = message;
+    document.body.appendChild(successDiv);
+    
+    setTimeout(() => {
+      successDiv.style.animation = 'slideOut 0.3s ease forwards';
+      setTimeout(() => {
+        document.body.removeChild(successDiv);
+      }, 300);
+    }, 3000);
+  }
+
+  // Initialize
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOut {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(100%); opacity: 0; }
+    }
+  `;
+  document.head.appendChild(style);
+
+  // Initial render
+  renderShopProducts();
+  updateCart();
+</script>
+
+</body>
+</html>
